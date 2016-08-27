@@ -1,0 +1,19 @@
+# Description: Enlightenment window manager.
+# URL: http://www.enlightenment.org/
+# Packager: berlius at nutyx dot com
+# Depends on: elementary emotion-generic-players evas-generic-loaders xcb-util-keysyms efl python-efl
+
+run=(elementary emotion-generic-players evas-generic-loaders efl python-efl)
+#
+name=enlightenment
+version=0.21.2
+release=1
+source=(http://download.enlightenment.org/rel/apps/enlightenment/$name-$version.tar.gz)
+#
+build() {
+    cd $name-$version
+    export CFLAGS="$CFLAGS -fvisibility=hidden"
+    ./configure --prefix=/usr 
+    make
+    make DESTDIR=$PKG install
+}
