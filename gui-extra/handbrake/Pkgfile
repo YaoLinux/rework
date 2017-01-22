@@ -2,13 +2,13 @@
 # URL: http://handbrake.fr/
 # Packager: Chris Farrell, timcowchip at gmail dot com
 # Maintainer: Chris Farrell, timcowchip at gmail dot com
-# Depends on: cmake qt5 libnotify lame x264 gtk3 faad2 freetype fribidi xorg-fontconfig libass libbluray libogg libpng libsamplerate libtheora libvorbis libvpx libxml2 perl-xml-parser pcre xorg-pixman python yasm x265
+# Depends on: cmake qt qt-base qt-tools intltool jansson jasper x264 x265  ffmpeg faad2 freetype fribidi gtk3 gdk-pixbuf gobject-introspection gstreamer1 harfbuzz lame libnotify libgudev libass libbluray libogg libpng libsamplerate libtheora libtiff libvorbis libvpx libxcb libxml2 libxslt opus perl-xml-parser pcre python2 yasm  
 
 name=handbrake
-version=0.10.3
+version=1.0.1
 release=1
 source=(
-http://download.handbrake.fr/releases/$version/HandBrake-$version.tar.bz2)
+https://handbrake.fr/rotation.php?file=HandBrake-1.0.1.tar.bz2)
 
 build() {
 	cd HandBrake-$version
