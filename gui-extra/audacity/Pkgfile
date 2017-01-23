@@ -2,20 +2,20 @@
 # URL: http://web.audacityteam.org/
 # Packager: Chris Farrell, timcowchip at gmail dot com
 # Maintainer: Chris Farrell, timcowchip at gmail dot com
-# Depends on: libvorbis libmad libid3tag wxgtk28 lame hicolor-icon-theme ffmpeg shared-mime-info desktop-file-utils redland jack soundtouch cmake zip python
+# Depends on: libvorbis libmad libid3tag wxgtk lame hicolor-icon-theme ffmpeg shared-mime-info desktop-file-utils redland jack soundtouch cmake zip python2 
 
 name=audacity
 version=2.1.2
 release=1
-source=("https://github.com/audacity/audacity/archive/Audacity-${version}.tar.gz"
-        'ffmpeg.patch')
+source=('ffmpeg.patch')
 build() {
-
-  cd "${SRC}/${name}-Audacity-${version}"
+  git clone https://github.com/audacity/audacity.git
+  
+  cd "${SRC}/${name}"
   patch -p1 -i "${SRC}/ffmpeg.patch"
-
-  WX_CONFIG=/usr/bin/wx-config-2.8 \
-  ./configure --prefix=/usr --enable-unicode --with-wx-config=$WX_CONFIG
+  
+  WX_CONFIG=/usr/bin/wx-config \
+  ./configure --prefix=/usr --enable-unicode --disable-vamp --with-wx-config=$WX_CONFIG --with-libsamplerate
 
   make
  
