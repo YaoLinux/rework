@@ -2,25 +2,27 @@
 # URL: https://github.com/clbr/${name}/
 # Packager: Chris Farrell, timcowchip at gmail dot com
 # Maintainer: Chris Farrell, timcowchip at gmail dot com
-# Depends on: zlib libpng libjpeg-turbo libxml2 sqlite freetype xorg-fontconfig cairo openssl curl icu harfbuzz fltk1 git ruby
+# Depends on: zlib libpng libjpeg-turbo libxml2 sqlite freetype xorg-fontconfig cairo openssl curl icu harfbuzz fltk git ruby
 
 name=webkitfltk
-version=0.1.1
-release=2
+version=0.5.1
+release=3
 
-source=()
+source=(https://github.com/clbr/$name/archive/v$version.tar.gz
+        https://github.com/clbr/webkitfltk/commit/6db7be57eb6f633d63fb90397adb21c6247ab410.patch
+        https://github.com/clbr/webkitfltk/commit/83626b77fc7d8fae005fd4575dd85dbb0f243081.patch)
 
 build() {
-	git clone https://github.com/clbr/webkitfltk.git
-	cd "${SRC}/${name}"
-	sed -i "s@isnan@std::isnan@g" Source/WebCore/platform/spi/cg/CoreGraphicsSPI.h
-	sed -i "s@isnan@std::isnan@g" Source/WTF/wtf/Stopwatch.h
-	sed -i "s@isnan@std::isnan@g" Source/JavaScriptCore/runtime/Options.cpp
-	make -C Source/WTF/wtf
-	make -C Source/JavaScriptCore gen
-	make -C Source/JavaScriptCore
-	make -C Source/WebCore
-	make -C Source/WebKit/fltk
+	
+  cd "${SRC}/${name}-${version}"
+  patch -p1 -i ../6db7be57eb6f633d63fb90397adb21c6247ab410.patch
+  patch -p1 -i ../83626b77fc7d8fae005fd4575dd85dbb0f243081.patch
+  make -C Source/bmalloc/bmalloc
+  make -C Source/WTF/wtf
+  make -C Source/JavaScriptCore gen
+  make -C Source/JavaScriptCore
+  make -C Source/WebCore
+  make -C Source/WebKit/fltk
 
 	make -C Source/WebKit/fltk install DESTDIR="${PKG}"
 }
