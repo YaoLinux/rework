@@ -1,12 +1,12 @@
 # Description: Enlightenment window manager.
 # URL: http://www.enlightenment.org/
-# Packager: berlius at nutyx dot com
-# Depends on: elementary emotion-generic-players evas-generic-loaders xcb-util-keysyms efl python-efl
+# Packager: berlius at nutyx dot com - sh4d0w
+# Depends on: xcb-util-keysyms efl python-efl
 
-run=(elementary emotion-generic-players evas-generic-loaders efl python-efl)
+run=(efl python-efl)
 #
 name=enlightenment
-version=0.21.2
+version=0.21.7
 release=1
 source=(http://download.enlightenment.org/rel/apps/enlightenment/$name-$version.tar.gz)
 #
