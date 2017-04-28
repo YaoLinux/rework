@@ -1,10 +1,10 @@
 # Description: python bindings to efl 
 # URL: http://www.enlightenment.org/
-# Packager: berlius at nutyx dot com
-# Depends on: python python3 cython pkg-config elementary dbus-python
+# Packager: berlius at nutyx dot com - sh4d0w
+# Depends on: python python3 cython pkg-config dbus-python efl
 
 name=python-efl
-version=1.18.0
+version=1.19.0
 release=1
 source=(http://download.enlightenment.org/rel/bindings/python/$name-$version.tar.xz)
 #
