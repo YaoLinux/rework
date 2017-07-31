@@ -1,0 +1,20 @@
+description="CLI curses-based monitoring tool"
+url="https://github.com/nicolargo/glances"
+contributors="Chris Farrell, timcowchip"
+packager="greg<greg@nutyx.org>"
+
+# Depends on: python psutil python-setuptools
+
+name=glances
+version=2.6.2
+release=1
+
+source=(https://pypi.python.org/packages/source/G/Glances/Glances-$version.tar.gz)
+
+
+build() {
+
+  cd Glances-$version
+  python setup.py install -O1 --prefix='/usr' --root=$PKG --optimize=1
+  
+}
