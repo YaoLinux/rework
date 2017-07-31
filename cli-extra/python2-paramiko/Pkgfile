@@ -1,0 +1,19 @@
+description="Python module that implements the SSH2 protocol"
+url="https://github.com/paramiko/paramiko/"
+contributors="tnut"
+packager="greg<greg@nutyx.org>"
+
+# Depends on: python2 python2-crypto python2-ecdsa
+
+name=python2-paramiko
+version=2.2.1
+release=1
+
+source=(https://pypi.python.org/packages/d1/0b/c8bc96c79bbda0bcc9f2912389fa59789bb8e7e161f24b01082b4c3f948d/paramiko-2.2.1.tar.gz)
+
+build() {
+
+    cd paramiko-$version
+    python2 setup.py install --prefix=/usr --root=$PKG
+}
+
