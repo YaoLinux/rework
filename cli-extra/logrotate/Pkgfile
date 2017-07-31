@@ -1,25 +1,44 @@
-# Depends on: popt
-description="The logrotate utility is designed to simplify the administration of log"
-url="https://fedorahosted.org/logrotate/"
-packager="alienus at nutyx dot org, tnut at nutyx dot org"
+description="Rotates system logs automatically"
+url="https://github.com/logrotate/logrotate"
+packager="greg<greg@nutyx.org>"
+
+# Depends on: popt gzip acl
+
 name=logrotate
-version=3.9.1
-release=2
-source=(
-https://fedorahosted.org/releases/l/o/logrotate/logrotate-$version.tar.gz
-logrotate.conf
-logrotate.README)
+version=3.12.3
+release=1
+
+source=(https://github.com/logrotate/logrotate/releases/download/$version/$name-$version.tar.xz
+		logrotate.conf)
+
 
 build() {
-unset MAKEFLAGS
-cd $name-$version
-./autogen.sh
-./configure --prefix=/usr
-make
-make PREFIX=$PKG MANDIR="/usr/share/man" install
+	cd $SRC/$name-$version
 
-# add missing dir
-install -dm755 $PKG/etc/logrotate.d
-# install the logrotate.conf file
-install -Dm644 $SRC/logrotate.conf $PKG/etc/logrotate.conf
+	./configure \
+		--prefix=/usr \
+		--sbindir=/usr/bin \
+		--mandir=/usr/share/man \
+		--with-compress-command=/usr/bin/gzip \
+		--with-uncompress-command=/usr/bin/gunzip \
+		--with-default-mail-command=/usr/bin/mail \
+		--with-acl
+	make
+	make test
+	
+}
+
+
+package() {
+
+	cd $SRC/$name-$version
+
+	make DESTDIR=$PKG install
+
+	install -dm755 $PKG/etc/logrotate.d
+	install -Dm644 $SRC/logrotate.conf" $PKG/etc/logrotate.conf
+
+	install -D -m644 examples/logrotate.timer $PKG/usr/lib/systemd/system/logrotate.timer
+	
+	
 }
