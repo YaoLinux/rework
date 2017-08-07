@@ -1,0 +1,34 @@
+description="Encrypted filesystem in user-space"
+url="http://www.arg0.net/encfs"
+contributors="pierre"
+packager="greg<greg@nutyx.org>"
+
+# Depends on: boost fuse rlog 
+
+name=encfs
+version=1.8.1
+release=2
+
+source=(https://github.com/vgough/$name/archive/v$version.tar.gz)
+
+
+build() {
+
+     cd $name-$version
+
+     autoreconf -if
+     ./configure --prefix=/usr
+    
+    make
+  
+}
+
+
+package() {
+
+    cd $name-$version
+    make DESTDIR=$PKG install
+ 
+}
+
+

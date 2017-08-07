@@ -1,0 +1,53 @@
+description="JavaScript runtime built on Chrome's V8 JavaScript engine"
+url="https://github.com/nodejs/"
+contributors="pierre"
+packager="greg<greg@nutyx.org>"
+
+
+# Depends on: python2 procps-ng openssl c_ares icu openssl zlib
+
+
+name=nodejs
+version=8.2.1
+release=1
+
+source=(https://github.com/nodejs/node/archive/v$version.tar.gz)
+
+
+prepare() {
+
+  cd node-$version
+
+  
+  find -type f -exec sed \
+    -e 's_^#!/usr/bin/env python$_&2_' \
+    -e 's_^\(#!/usr/bin/python2\).[45]$_\1_' \
+    -e 's_^#!/usr/bin/python$_&2_' \
+    -e 's_^\( *exec \+\)python\( \+.*\)$_\1python2\2_'\
+    -e 's_^\(.*\)python\( \+-c \+.*\)$_\1python2\2_'\
+    -e "s_'python'_'python2'_" -i {} \;
+  find test/ -type f -exec sed 's_python _python2 _' -i {} \;
+  
+}
+
+
+build() {
+
+  cd node-$version
+  export PYTHON=python2
+  
+  ./configure --prefix=/usr        \
+            --shared-openssl       \
+            --shared-cares         \
+            --shared-zlib          \
+            --with-intl=system-icu
+ make
+ 
+}
+
+package() {
+
+cd node-$version 
+make DESTDIR=$PKG install
+
+}
