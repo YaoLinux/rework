@@ -1,0 +1,36 @@
+# Depends on: flex pam
+
+description="AT and batch delayed command scheduling utility and daemon"
+url="http://blog.calhariz.com/tag/at"
+packager="greg <greg@nutyx.org>"
+contributors="berlius"
+
+name=at
+version=3.1.20
+release=1
+
+source=(http://blog.calhariz.com/public/sft/$name/${name}_${version}.orig.tar.gz)
+ 
+build() {
+
+cd $name-$version
+	
+./configure \
+    --prefix=/usr \
+    --sbindir=/usr/bin \
+    --with-jobdir=/var/spool/atd \
+    --with-atspool=/var/spool/atd
+    
+   CFLAGS="$CFLAGS -w" make 
+   
+  make
+ 	
+}
+
+
+package() {
+
+  	cd $name-$version
+	make DESTDIR=$PKG install
+  
+}
