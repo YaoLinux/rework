@@ -1,0 +1,26 @@
+# Depends on: kcompletion kconfig kconfigwidgets kcoreaddons kdbusaddons kdeclarative kdelibs4support ki18n kiconthemes kio kitemviews knotifications kservice kwallet -kwidgetsaddons kwindowsystem kxmlgui networkmanager-qt plasma-framework solid qca-qt modemmanager-qt mobile-broadband-provider-info
+run=(mobile-broadband-provider-info)
+
+description="Plasma applet written in QML for managing network connections"
+url="https://www.kde.org/"
+packager="thut <tnut@nutyx.org>"
+contributors="Pierre B"
+
+_name=plasma-nm
+version=5.10.5
+release=1
+
+source=(https://download.kde.org/stable/plasma/$version/$name-$version.tar.xz)
+
+build() {
+mkdir build
+cd    build
+cmake ../$name-$version           \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_BUILD_TYPE=Release  \
+      -DKDE_INSTALL_LIBDIR=lib    \
+      -DBUILD_TESTING=OFF         \
+      -Wno-dev
+make
+make DESTDIR=$PKG install
+}
