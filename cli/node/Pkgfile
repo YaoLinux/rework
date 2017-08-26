@@ -1,4 +1,4 @@
-# Depends on: openssl10 python2 icu
+# Depends on: python2 icu
 
 description="Node (Evented I/O for V8 JavaScript)"
 url="http://nodejs.org/"
@@ -6,14 +6,13 @@ packager="tnut <tnut@nutyx.org>"
 contributors="Alienus"
 
 name=node
-version=8.2.1
+version=8.4.0
 release=1
 
 source=(http://nodejs.org/dist/v$version/node-v$version.tar.gz
 node.npm.sh)
 build() {
 	cd $name-v$version
-	PKG_CONFIG_PATH=/usr/lib/openssl-1.0/pkgconfig \
 	./configure --prefix=/usr \
 	--shared-openssl \
 	--shared-zlib \
