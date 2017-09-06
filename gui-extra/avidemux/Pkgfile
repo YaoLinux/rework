@@ -9,7 +9,7 @@ name=avidemux
 version=2.6.20
 release=1
 
-source=(https://downloads.sourceforge.net/$name/$name_${pkgver}.tar.gz)
+source=(https://downloads.sourceforge.net/$name/${name}_${version}.tar.gz)
 
 build() {
 
