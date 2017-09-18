@@ -1,0 +1,30 @@
+# Depends on: openssl10
+
+description="Aircrack next generation"
+url="http://www.aircrack-ng.org/"
+packager="greg<greg@nutyx.org>"
+
+
+name=aircrack-ng
+version=1.1
+release=1
+
+source=(http://download.aircrack-ng.org/$name-$version.tar.gz)
+
+build() {
+  cd $name-$version
+
+  make \
+      prefix=/usr \
+      mandir=/usr/share/man \
+      SQLITE=false \
+      REVISION=0 \
+      DESTDIR=$PKG install
+}
+
+package () {
+
+	cd $name-$version
+	DESTDIR=$PKG install
+
+       } 
