@@ -1,11 +1,13 @@
-# Depends on: boost geoip python2
+# Depends on: boost geoip python
 
 description="A C++ BitTorrent library that aims to be a good alternative to all the other implementations around."
 url="http://www.rasterbar.com/products/libtorrent/"
-packager="fanch at nutyx dot org, tnut at nutyx dot org"
+packager="tnut <tnut@nutyx.org>"
+contributors="Fanch"
+
 name=libtorrent-rasterbar
-version=1.0.7
-release=2
+version=1.1.4
+release=1
 source=(https://github.com/arvidn/libtorrent/releases/download/libtorrent-${version//./_}/$name-$version.tar.gz)
 
 build() {
@@ -13,6 +15,7 @@ build() {
    ./configure \
     --prefix=/usr \
     --enable-python-binding \
+    --with-boost-python=lib \
     --with-libgeoip=system \
     --with-libiconv
    make
