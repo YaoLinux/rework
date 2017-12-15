@@ -1,25 +1,47 @@
-# Depends on: ruby python qt4
+# Depends on: ruby icu gperf python2 qtdoc qttools cmake qtlocation qtsensors qtwebchannel libwebp libxslt xorg-libxcomposite hyphen gstreamer-plugins-base
 
-description="QtWebkit module for Qt4 lib"
-url="http://trac.webkit.org/wiki/QtWebKit"
-packager="tnut at nutyx dot org"
-PKGMK_IGNORE_UNPACK="yes"
+description="Classes for a WebKit2 based implementation and a new QML API"
+url="http://qt-project.org/"
+packager="greg<greg@nutyx.org>"
+contributors=""
+
+run=()
 
 name=qtwebkit
-version=2.3.4
-release=2
-_name=qt-everywhere-opensource-src-${_qtversion}
-source=(http://download.kde.org/stable/qtwebkit-2.3/$version/src/qtwebkit-$version.tar.gz
-        qtwebkit-2.3.4-gcc5-1.patch)
+version=5.212.0-alpha2
+release=1
+
+source=(https://github.com/annulen/webkit/archive/$name-$version.tar.gz
+qt5-webkit-gcc7.patch)
+
+prepare() {
+mkdir -p build
+cd webkit-qtwebkit-$version
+patch -p1 -i ../qt5-webkit-gcc7.patch
+}
 
 build() {
-mkdir qtwebkit-$version
-cd qtwebkit-$version
-tar xf ../qtwebkit-$version.tar.gz
-source setqt4
-patch -Np1 -i ../qtwebkit-2.3.4-gcc5-1.patch
-[ -z $QTDIR ] && QTDIR="/usr"
+cd build
+cmake ../webkit-qtwebkit-$version \
+-DCMAKE_INSTALL_PREFIX=/usr \
+-DCMAKE_BUILD_TYPE=Release \
+-DPORT=Qt \
+-DENABLE_TOOLS=OFF
+ make
+}
 
-Tools/Scripts/build-webkit --qt --no-webkit2 --prefix=$QT4PREFIX
-make INSTALL_ROOT=$PKG -C WebKitBuild/Release install
+package() {
+cd build
+make DESTDIR=$PKG install
+}
+
+uptodate() {
+feed=https://github.com/annulen/webkit/releases.atom 
+exec="lynx -read_timeout=20 -dump -listonly -nonumbers $feed"
+ligne=1 
+$exec $feed | grep title | \
+sed "s@<title>@@" | sed "s@</title>@@" | \
+sed "s@QtWebKit @@" | sed "s@ @@g" | \
+head -n $(($ligne+1 )) | \
+tail -n $(($ligne))
 }
