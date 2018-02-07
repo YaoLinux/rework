@@ -1,4 +1,4 @@
-# Depends on: git qtbase qtsvg fluxbox kwindowsystem oxygen-icons5 xscreensaver poppler-qt qtx11extras qtmultimedia xorg-backlight alsa-utils acpid numlockx pavucontrol-qt fluxmod-styles network-manager-applet xorg-term fluxbox qtbase qtsvg qttools
+# Depends on: git qtbase fluxbox kwindowsystem oxygen-icons5 xscreensaver poppler-qt qtx11extras qtmultimedia xorg-xbacklight alsa-utils acpid numlockx pavucontrol-qt fluxmod-styles network-manager-applet xorg-term qtsvg qttools
 
 description="A Lightweight QT5 Desktop for FreeBSD"
 url="https://github.com/pcbsd/lumina"
