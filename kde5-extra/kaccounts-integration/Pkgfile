@@ -1,0 +1,13 @@
+# Depends on: extra-cmake-modules kdoctools kcmutils kio ki18n kwidgetsaddons kcoreaddons kconfig kwallet kdbusaddons signon-kwallet-extension signon-plugin-oauth2 signon-ui
+
+description="System to administer web accounts for the sites and services Google, Facebook, Owncloud, IMAP, Jabber ..."
+url="https://www.kde.org/applications/internet"
+packager="pierre at nutyx dot org"
+run=(signon-kwallet-extension signon-plugin-oauth2 signon-ui)
+
+name=kaccounts-integration
+version=18.04.0
+
+source=(http://download.kde.org/stable/applications/$version/src/$name-$version.tar.xz)
+
+build=kde5

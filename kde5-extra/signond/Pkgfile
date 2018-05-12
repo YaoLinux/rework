@@ -1,4 +1,4 @@
-# Depends on : qt-base qt-tools libproxy doxygen graphviz dejavu-ttf freefont-ttf ttf-liberation noto-fonts
+# Depends on : qtbase qttools libproxy doxygen graphviz dejavu-ttf freefont-ttf ttf-liberation noto-fonts
 
 description="A D-Bus service which performs user authentication on behalf of its clients"
 url="https://gitlab.com/accounts-sso/signond/"

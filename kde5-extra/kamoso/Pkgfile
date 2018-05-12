@@ -1,25 +1,15 @@
-# Depends on: purpose accounts-qml-module kf5-kconfig kf5-kdoctools kf5-kio kf5-kdeclarative kf5-ki18n kf5-extra-cmake-modules kf5-kdoctools boost python gstreamer-qt gstreamer-plugins-bad qt-quickcontrols
+# Depends on: purpose kconfig kdoctools kio kdeclarative ki18n extra-cmake-modules kdoctools boost python gstreamer-plugins-bad qtquickcontrols kirigami2
 
 description="A webcam recorder from KDE community"
 url="https://userbase.kde.org/Kamoso"
-packager="pierre at nutyx dot org"
+packager="tnut <tnut@nutyx,org>"
+contributors="Pierre B."
 
-run=(purpose accounts-qml-module)
+run=(purpose)
 
 name=kamoso
-version=3.2.4
-release=2
+version=18.04.0
 
-source=(https://download.kde.org/stable/$name/${version%.*}/src/$name-$version.tar.xz)
+source=(https://download.kde.org/stable/applications/$version/$name/src/$name-$version.tar.xz)
 
-build() {
-  mkdir build
-  cd build
-  cmake ../$name-$version       \
-    -DCMAKE_BUILD_TYPE=Release  \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKDE_INSTALL_LIBDIR=lib    \
-    -DBUILD_TESTING=OFF 
-  make
-  make DESTDIR=$PKG install
-}
+build=kde5

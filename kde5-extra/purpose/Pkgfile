@@ -1,0 +1,13 @@
+# Depends on: extra-cmake-modules intltool hicolor-icon-theme ki18n kcoreaddons kconfig kaccounts-integration
+
+description="Framework for providing abstractions to get the developer's purposes fulfilled"
+url="https://www.kde.org/"
+packager="tnut <tnut@nutyx.org>"
+contributors="Pierre B"
+
+name=purpose
+version=5.45.0
+
+source=(http://download.kde.org/stable/frameworks/${version%.*}/$name-$version.tar.xz)
+
+build=kde5
