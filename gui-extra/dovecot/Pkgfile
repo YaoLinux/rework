@@ -1,0 +1,43 @@
+# Depends on: zlib bzip2 openssl libcap libtirpc
+
+description="IMAP and POP3 server with ssl/ipv6 support, written with security primarily in mind"
+url="http://dovecot.org"
+contributors="Berlius, Tnut, Greg"
+packager="tnut <tnut@nutyx.org>"
+
+name=dovecot
+version=2.3.1
+nutyx_version=10.1
+
+source=(https://dovecot.org/releases/2.3/$name-$version.tar.gz 
+        http://downloads.tuxfamily.org/nutyx/files/nutyx-${nutyx_version}.tar.xz
+        dovecot-config.patch)
+
+build () {
+cd $name-$version
+
+CFLAGS+="-I/usr/include/tirpc" \
+LDFLAGS+="-ltirpc" \
+./configure --prefix=/usr \
+--sysconfdir=/etc \
+--localstatedir=/var \
+--disable-static \
+--docdir=/usr/share/doc/dovecot-$version
+make
+
+make DESTDIR=$PKG install
+cp -r $PKG/usr/share/doc/dovecot/example-config/* $PKG/etc/dovecot
+rm $PKG/etc/dovecot/README
+install -d $PKG/etc/ssl/{certs,keys}
+touch $PKG/etc/ssl/certs/dovecot.crt
+touch $PKG/etc/ssl/keys/dovecot.key
+chmod 0600 $PKG/etc/ssl/{keys/dovecot.key,certs/dovecot.crt}
+install -d -m 0750 $PKG/var/lib/dovecot
+install -d -m 0755 $PKG/var/run/dovecot
+install -d -m 0750 -o root -g dovecot $PKG/var/run/dovecot/login
+
+# Service
+cd ../nutyx-${nutyx_version}
+make DESTDIR=$PKG install-dovecot
+
+}
