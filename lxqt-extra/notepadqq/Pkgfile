@@ -1,0 +1,33 @@
+# Depends on: hicolor-icon-theme qtsvg qtwebkit qttools
+
+description="Notepad++-like text editor for Linux"
+url="http://notepadqq.altervista.org/"
+packager="tnut <tnut@nutyx.org>"
+contributors="Greg"
+
+name=notepadqq
+version=1.2.0
+release=2
+
+PKGMK_KEEP_SOURCES="no"
+
+source=(https://github.com/$name/$name/archive/v$version.tar.gz
+)
+
+build() {
+cd $name-$version
+./configure --prefix /usr
+make
+make INSTALL_ROOT=$PKG install
+}
+
+uptodate() {
+feed=https://github.com/notepadqq/CodeMirror/$name/releases.atom 
+exec="lynx -read_timeout=20 -dump -listonly -nonumbers $feed"
+ligne=1 # nombre de notification ? afficher
+$exec $feed | grep title | \
+sed "s@<title>@@" | \
+sed "s@</title>@@" | \
+head -n $(($ligne+1 )) | \
+tail -n $(($ligne))
+}
