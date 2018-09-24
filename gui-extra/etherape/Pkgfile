@@ -1,0 +1,20 @@
+# Depends on: libglade libgnomecanvas popt libpcap gnome-doc-utils
+
+description="A graphical network monitor for various OSI layers and protocols"
+url="http://etherape.sourceforge.net/"
+packager="tnut <tnut@nutyx.org>"
+contributors="Greg"
+
+name=etherape
+version=0.9.18
+
+source=(https://downloads.sourceforge.net/${name}/${name}-${version}.tar.gz)
+
+build() {
+  cd ${name}-${version}
+  ./configure --prefix=/usr --sysconfdir=/etc
+  make
+
+  make DESTDIR=$PKG install
+
+}
