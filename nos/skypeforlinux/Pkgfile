@@ -1,0 +1,29 @@
+# Depends on : gtk2 xorg-libxscrnsaver gconf alsa-lib xorg-libxtst libsecret nss
+
+
+description="Skype for Linux - Preview/Insider Version"
+url="https://www.skype.com/"
+packager="sipo<sipo@linuxnutyx.fr>"
+contributors="Sipo"
+
+run=()
+
+name=skypeforlinux
+_name=$name-preview-bin
+version=8.17.76.3
+release=1
+
+source=(https://repo.skype.com/deb/pool/main/s/skypeforlinux/skypeforlinux_8.17.76.3_amd64.deb)
+
+build() {
+  cd $SRC
+  ar x skypeforlinux_8.17.76.3_amd64.deb
+  tar xf data.tar.xz
+  cp -av usr/ $PKG/
+  cp -av opt/ $PKG/
+  install -d "$PKG/usr/share/licenses/$_name"
+  mv "$PKG/usr/share/$name/LICENSES.chromium.html" \
+    "${PKG}/usr/share/licenses/$_name/"
+  rm -rf "$PKG/opt"
+}
+}
